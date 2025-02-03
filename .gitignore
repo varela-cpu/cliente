@@ -1,0 +1,9 @@
+# Ignorar archivos generados por Maven
+target/
+
+# Ignorar logs de errores de la JVM
+hs_err_pid*.log
+replay_pid*.log
+
+# Ignorar archivos de estado de Maven
+maven-status/
