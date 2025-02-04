@@ -3,25 +3,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package inventariocliente.UID;
+
+import com.opencsv.CSVWriter;
 import inventariocliente.util.InventarioCliente;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import javax.swing.JOptionPane;
 import java.io.IOException;
+import java.util.ArrayList;
+import productModel.Product;
+
 /**
  *
  * @author User
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
+
     private InventarioCliente gestor;
     private boolean control;
+
     /**
      * Creates new form VentanaPrincipal
      */
     public VentanaPrincipal() {
         initComponents();
-        control=false;
+        control = false;
     }
-    public void setInventarioCliente (InventarioCliente gestor){
-        this.gestor=gestor;
+
+    public void setInventarioCliente(InventarioCliente gestor) {
+        this.gestor = gestor;
     }
 
     /**
@@ -39,6 +50,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         bBuscar = new javax.swing.JButton();
         bExportar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        bBuscar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -81,6 +93,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI Symbol", 1, 24)); // NOI18N
         jLabel2.setText("Virtual Store");
 
+        bBuscar1.setText("Exportar a Excel");
+        bBuscar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,12 +110,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     .addComponent(bAgregar)
                     .addComponent(bEliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bActualizar))
-                    .addComponent(bExportar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bBuscar1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bExportar)))
                 .addGap(51, 51, 51))
             .addGroup(layout.createSequentialGroup()
                 .addGap(178, 178, 178)
@@ -116,7 +138,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bExportar)
-                    .addComponent(bEliminar))
+                    .addComponent(bEliminar)
+                    .addComponent(bBuscar1))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -124,59 +147,84 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarActionPerformed
-    if (control) {
-        JOptionPane.showMessageDialog(null, "Ya hay un proceso ejecutándose", "Error", JOptionPane.ERROR_MESSAGE);
-    } else {
-        control = true;
-        Agregar dialogo = new Agregar(this, true, gestor);
-        dialogo.setVisible(true);
-        control = false;
-    }
+        if (control) {
+            JOptionPane.showMessageDialog(null, "Ya hay un proceso ejecutándose", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            control = true;
+            Agregar dialogo = new Agregar(this, true, gestor);
+            dialogo.setVisible(true);
+            control = false;
+        }
     }//GEN-LAST:event_bAgregarActionPerformed
 
     private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
-    if (control) {
-        JOptionPane.showMessageDialog(null, "Ya hay un proceso ejecutándose", "Error", JOptionPane.ERROR_MESSAGE);
-    } else {
-        control = true;
-        Eliminar dialogo = new Eliminar(this, true, gestor);
-        dialogo.setVisible(true);
-        control = false;
-    }
+        if (control) {
+            JOptionPane.showMessageDialog(null, "Ya hay un proceso ejecutándose", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            control = true;
+            Eliminar dialogo = new Eliminar(this, true, gestor);
+            dialogo.setVisible(true);
+            control = false;
+        }
     }//GEN-LAST:event_bEliminarActionPerformed
 
     private void bActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bActualizarActionPerformed
-    if (control) {
-        JOptionPane.showMessageDialog(null, "Ya hay un proceso ejecutándose", "Error", JOptionPane.ERROR_MESSAGE);
-    } else {
-        control = true;
-        Actualizar dialogo = new Actualizar(this, true, gestor);
-        dialogo.setVisible(true);
-        control = false;
-    }
+        if (control) {
+            JOptionPane.showMessageDialog(null, "Ya hay un proceso ejecutándose", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            control = true;
+            Actualizar dialogo = new Actualizar(this, true, gestor);
+            dialogo.setVisible(true);
+            control = false;
+        }
     }//GEN-LAST:event_bActualizarActionPerformed
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
-    if (control) {
-        JOptionPane.showMessageDialog(null, "Ya hay un proceso ejecutándose", "Error", JOptionPane.ERROR_MESSAGE);
-    } else {
-        control = true;
-        Buscar dialogo = new Buscar(this, true, gestor);
-        dialogo.setVisible(true);
-        control = false;
-    }
+        if (control) {
+            JOptionPane.showMessageDialog(null, "Ya hay un proceso ejecutándose", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            control = true;
+            Buscar dialogo = new Buscar(this, true, gestor);
+            dialogo.setVisible(true);
+            control = false;
+        }
     }//GEN-LAST:event_bBuscarActionPerformed
 
     private void bExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExportarActionPerformed
-    if (control) {
-        JOptionPane.showMessageDialog(null, "Ya hay un proceso ejecutándose", "Error", JOptionPane.ERROR_MESSAGE);
-    } else {
-        control = true;
-        Inventario dialogo = new Inventario(this, true, gestor);
-        dialogo.setVisible(true);
-        control = false;
-    }
+        if (control) {
+            JOptionPane.showMessageDialog(null, "Ya hay un proceso ejecutándose", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            control = true;
+            Inventario dialogo = new Inventario(this, true, gestor);
+            dialogo.setVisible(true);
+            control = false;
+        }
     }//GEN-LAST:event_bExportarActionPerformed
+
+    private void bBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscar1ActionPerformed
+
+        ArrayList<Product> products = gestor.exportarInventario();
+        String filePath = "C:\\exportcsv\\exportProduct.csv";
+
+        try (CSVWriter writer = new CSVWriter(new FileWriter(filePath))) { 
+            String[] header = {"ID", "Nombre", "Descripción", "Precio", "cantidad"};
+            writer.writeNext(header);
+            for (Product product : products) {
+                String[] data = {
+                    String.valueOf(product.getId()),
+                    product.getName(),
+                    product.getDescription(),
+                    String.valueOf(product.getPrice()),
+                    String.valueOf(product.getAvailable())
+                };
+                writer.writeNext(data);
+            }
+
+            System.out.println("CSV generado con éxito en " + filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_bBuscar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,11 +251,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
     }
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bActualizar;
     private javax.swing.JButton bAgregar;
     private javax.swing.JButton bBuscar;
+    private javax.swing.JButton bBuscar1;
     private javax.swing.JButton bEliminar;
     private javax.swing.JButton bExportar;
     private javax.swing.JLabel jLabel2;

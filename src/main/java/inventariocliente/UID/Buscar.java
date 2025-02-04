@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package inventariocliente.UID;
+import productModel.Product;
 import inventariocliente.util.*;
 import javax.swing.JOptionPane;
 
@@ -139,7 +140,8 @@ public class Buscar extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(this, "Como mínimo uno de los campos debe tener contenido", "Error", JOptionPane.ERROR_MESSAGE);
     } else {
         try {
-            Producto producto = gestor.buscarProducto(nombre.isEmpty() ? codigo : nombre);
+            Product producto = gestor.buscarProducto(nombre.isEmpty() ? codigo : nombre);
+            
             if (producto != null) {
                 // Mostrar los detalles del producto encontrado
                 JOptionPane.showMessageDialog(this, "Producto encontrado:\n" + producto.toString(), "Resultado", JOptionPane.INFORMATION_MESSAGE);

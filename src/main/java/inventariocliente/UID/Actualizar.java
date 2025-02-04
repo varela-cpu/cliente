@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package inventariocliente.UID;
+import productModel.Product;
 import inventariocliente.util.*;
 import javax.swing.JOptionPane;
 
@@ -181,7 +182,7 @@ public class Actualizar extends javax.swing.JDialog {
             int cantidad = Integer.parseInt(cantidadTexto);
             double precio = Double.parseDouble(precioTexto);
 
-            Producto producto = new Producto(nombre, codigo, cantidad, precio, descripcion);
+            Product producto = new Product(Integer.parseInt(codigo), nombre, descripcion, precio, cantidad);
             gestor.actualizarProducto(producto);
             JOptionPane.showMessageDialog(this, "Producto actualizado.", "Información", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();

@@ -3,24 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package inventariocliente.UID;
+
+import productModel.Product;
 import inventariocliente.util.*;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
  */
 public class Agregar extends javax.swing.JDialog {
+
     private InventarioCliente gestor;
+
     /**
      * Creates new form Agregar
      */
-    public Agregar(java.awt.Frame parent, boolean modal, InventarioCliente gestor ) {
+    public Agregar(java.awt.Frame parent, boolean modal, InventarioCliente gestor) {
         super(parent, modal);
         initComponents();
-        this.gestor= gestor;
+        this.gestor = gestor;
     }
-    
-    public void limpiar(){
+
+    public void limpiar() {
         txtCantidad.setText("");
         txtCodigo.setText("");
         txtNombre.setText("");
@@ -149,31 +154,32 @@ public class Agregar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-    String nombre = txtNombre.getText().trim();
-    String codigo = txtCodigo.getText().trim();
-    String cantidadTexto = txtCantidad.getText().trim();
-    String precioTexto = txtPrecio.getText().trim();
-    String descripcion = txtDescripcion.getText().trim();
+        String nombre = txtNombre.getText().trim();
+        String codigo = txtCodigo.getText().trim();
+        String cantidadTexto = txtCantidad.getText().trim();
+        String precioTexto = txtPrecio.getText().trim();
+        String descripcion = txtDescripcion.getText().trim();
 
-    if (nombre.isEmpty() || codigo.isEmpty() || cantidadTexto.isEmpty() || precioTexto.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
-    } else {
-        try {
-            int cantidad = Integer.parseInt(cantidadTexto);
-            double precio = Double.parseDouble(precioTexto);
+        if (nombre.isEmpty() || codigo.isEmpty() || cantidadTexto.isEmpty() || precioTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                int cantidad = Integer.parseInt(cantidadTexto);
+                double precio = Double.parseDouble(precioTexto);
+                Product producto = new Product(Integer.parseInt(codigo), nombre, descripcion, precio, cantidad
+                );
 
-            Producto producto = new Producto(nombre, codigo, cantidad, precio, descripcion);
-            gestor.agregarProducto(producto);
-            this.dispose();
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Cantidad y precio deben ser valores numéricos", "Error", JOptionPane.ERROR_MESSAGE);
+                gestor.agregarProducto(producto);
+                this.dispose();
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Cantidad y precio deben ser valores numéricos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-    }
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-    this.limpiar();
-    this.dispose();
+        this.limpiar();
+        this.dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed

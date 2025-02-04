@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package inventariocliente.UID;
+import productModel.Product;
 import inventariocliente.util.*;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
@@ -99,18 +101,18 @@ public class Inventario extends javax.swing.JDialog {
     private void bRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRefrescarActionPerformed
     try {
         // Obtener el inventario completo del servidor
-        List<Producto> inventario = gestor.exportarInventario();
+        ArrayList<Product> inventario = gestor.exportarInventario();
 
         // Crear un modelo de tabla con los datos del inventario
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.setColumnIdentifiers(new String[]{"Código", "Nombre", "Cantidad", "Precio", "Descripción"});
 
-        for (Producto producto : inventario) {
-            modelo.addRow(new Object[]{producto.getCodigo(), producto.getNombre(), producto.getCantidad(), producto.getPrecio(), producto.getDescripcion()});
+        for (Product producto : inventario) {
+            modelo.addRow(new Object[]{producto.getId(), producto.getName(), producto.getAvailable(), producto.getPrice(), producto.getDescription()});
         }
 
         // Establecer el modelo de tabla en la tabla
-        tablaProductos.setModel(modelo);
+        jTable1.setModel(modelo);
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Error al refrescar el inventario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
